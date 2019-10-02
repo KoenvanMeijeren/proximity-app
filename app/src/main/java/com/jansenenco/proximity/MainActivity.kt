@@ -4,10 +4,12 @@ package com.jansenenco.proximity
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ResolveInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         initializeProximitySensor()
     }
 
-    private fun changePage (buttonId: Int) {
+    private fun changePage(buttonId: Int) {
         val intent = Intent(this, AppActivity::class.java)
         intent.putExtra("id", buttonId)
         startActivity(intent)
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         buttonGmail = findViewById(R.id.buttonGmail)
         buttonPhone = findViewById(R.id.buttonPhone)
 
-        buttonChrome.setOnClickListener{
+        buttonChrome.setOnClickListener {
             changePage(buttonChrome.id)
         }
 
@@ -83,6 +85,12 @@ class MainActivity : AppCompatActivity() {
 
                     proximitySensorMessage.text = resources.getString(R.string.openChromeApp)
                     proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_red_dark))
+
+                    val chromeIntent: Intent = Uri.parse("https://www.google.com").let { webpage ->
+                        Intent(Intent.ACTION_VIEW, webpage)
+                    }
+
+                    initializeIntent(chromeIntent)
                 }
 
                 if (event.values[0] in 5f..7f) {
@@ -101,6 +109,16 @@ class MainActivity : AppCompatActivity() {
                     proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_blue_dark))
                 }
             }
+        }
+    }
+
+    private fun initializeIntent(intent: Intent) {
+        val activities: List<ResolveInfo> =
+            packageManager.queryIntentActivities(intent, 0)
+        val isIntentSafe: Boolean = activities.isNotEmpty()
+
+        if (isIntentSafe) {
+            startActivity(intent)
         }
     }
 }
