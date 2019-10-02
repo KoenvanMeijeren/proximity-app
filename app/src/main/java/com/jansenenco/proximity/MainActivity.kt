@@ -90,6 +90,8 @@ class MainActivity : AppCompatActivity() {
                         Intent(Intent.ACTION_VIEW, webpage)
                     }
 
+                    Thread.sleep(1)
+                    println("App wordt geopend")
                     initializeIntent(chromeIntent)
                 }
 
