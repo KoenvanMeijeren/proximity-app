@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Proximity</string>
+    <string name="chrome">Chrome</string>
+    <string name="back">Back</string>
+    <string name="testTextView">test</string>
+    <string name="gmail">Gmail</string>
+    <string name="phone">Phone</string>
+    <string name="inputPasswordTitle">Morsecode wachtwoord</string>
+    <string name="openChromeApp">Google chrome app wordt geopend</string>
+    <string name="openGmailApp">Gmail app wordt geopend</string>
+    <string name="openPhoneApp">Telefoon app wordt geopend</string>
+</resources>
