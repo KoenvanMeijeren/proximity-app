@@ -25,9 +25,9 @@ class AppActivity : AppCompatActivity() {
 
     private fun changeAppViewBasedOnId() {
         when (buttonID) {
-            2131165221 -> changeAppContent("Google Chrome", "-")
-            2131165222 -> changeAppContent("Gmail", "--")
-            2131165224 -> changeAppContent("Phone", "---")
+            2131165221 -> changeAppContent("Google Chrome", "2 tot 4 cm")
+            2131165222 -> changeAppContent("Gmail", "5 tot 7 cm")
+            2131165224 -> changeAppContent("Phone", "8 tot 10 cm")
         }
     }
 
