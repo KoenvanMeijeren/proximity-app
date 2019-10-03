@@ -74,23 +74,17 @@ class MainActivity : AppCompatActivity() {
 
         override fun onSensorChanged(event: SensorEvent) {
             val params = this@MainActivity.window.attributes
-            if (event.sensor.type == Sensor.TYPE_PROXIMITY) {
-                if (event.values[0] in 0f..2f) {
-                    proximitySensorMessage.text = ""
-                }
+            if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] < 8f) {
+                params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                window.attributes = params
 
-                if (event.values[0] in 2f..4f) {
-                    params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    window.attributes = params
+                val packageName = "com.android.chrome"
+                val pm = applicationContext.packageManager
+                val chromeIntent = pm.getLaunchIntentForPackage(packageName)
 
-                    val packageName = "com.android.chrome"
-                    val pm = applicationContext.packageManager
-                    val chromeIntent = pm.getLaunchIntentForPackage(packageName)
-
-                    Thread.sleep(2)
-                    println("App wordt geopend")
-                    initializeIntent(chromeIntent!!)
-                }
+                Thread.sleep(2)
+                println("App wordt geopend")
+                initializeIntent(chromeIntent!!)
             }
         }
     }
