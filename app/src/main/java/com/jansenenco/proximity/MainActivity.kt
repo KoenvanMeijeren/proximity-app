@@ -83,32 +83,13 @@ class MainActivity : AppCompatActivity() {
                     params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                     window.attributes = params
 
-                    proximitySensorMessage.text = resources.getString(R.string.openChromeApp)
-                    proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_red_dark))
-
-                    val chromeIntent: Intent = Uri.parse("https://www.google.com").let { webpage ->
-                        Intent(Intent.ACTION_VIEW, webpage)
-                    }
+                    val packageName = "com.android.chrome"
+                    val pm = applicationContext.packageManager
+                    val chromeIntent = pm.getLaunchIntentForPackage(packageName)
 
                     Thread.sleep(2)
                     println("App wordt geopend")
-                    initializeIntent(chromeIntent)
-                }
-
-                if (event.values[0] in 5f..7f) {
-                    params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    window.attributes = params
-
-                    proximitySensorMessage.text = resources.getString(R.string.openGmailApp)
-                    proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_green_dark))
-                }
-
-                if (event.values[0] in 8f..10f) {
-                    params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                    window.attributes = params
-
-                    proximitySensorMessage.text = resources.getString(R.string.openPhoneApp)
-                    proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_blue_dark))
+                    initializeIntent(chromeIntent!!)
                 }
             }
         }
