@@ -4,6 +4,8 @@ package com.jansenenco.proximity
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -24,18 +26,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var proximitySensor: Sensor
 
     private val packagesNames = arrayOf(
-        "com.snapchat.android",
-        "com.android.phone",
-        "com.android.settings",
-        "com.linkedin.android",
-        "com.google.android.calendar",
         "com.android.chrome",
-        "com.instagram.android",
-        "com.spotify.music",
-        "com.whatsapp",
-        "com.google.android.youtube",
-        "com.google.android.apps.maps",
-        "com.facebook.katana"
+        "com.google.android.calendar",
+        "com.oneplus.gallery",
+        "com.google.android.gm",
+        "com.android.settings",
+        "com.android.dialer"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,13 +88,23 @@ class MainActivity : AppCompatActivity() {
                 params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 window.attributes = params
 
-                val arraySize = packagesNames.size
-                val randomNumber = Random.nextInt(arraySize)
-                val pm = applicationContext.packageManager
+                val randomNumber: Int = Random.nextInt(packagesNames.size)
+                val pm: PackageManager = applicationContext.packageManager
+                val allApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
                 val appIntent: Intent? = pm.getLaunchIntentForPackage(packagesNames[randomNumber])
 
-                Thread.sleep(2)
                 initializeIntent(appIntent!!)
+//                for (app in allApps) {
+//                    if (app.packageName === packagesNames[randomNumber]) {
+//                        proximitySensorMessage.text = "App "+packagesNames[randomNumber]+" wordt geopend"
+//                        initializeIntent(appIntent!!)
+//                        return
+//                    } else {
+//                        proximitySensorMessage.text = "Kan app niet openen"
+//                        proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_red_dark))
+//                        return
+//                    }
+//                }
             }
         }
     }
