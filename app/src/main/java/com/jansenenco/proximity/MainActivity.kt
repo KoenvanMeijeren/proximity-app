@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var buttonChrome: Button
@@ -23,6 +24,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sensorManager: SensorManager
     private lateinit var proximitySensor: Sensor
+
+    private val packagesNames = arrayOf(
+        "com.snapchat.android",
+        "com.android.phone",
+        "com.android.settings",
+        "com.linkedin.android",
+        "com.google.android.calendar",
+        "com.android.chrome",
+        "com.instagram.android",
+        "com.spotify.music",
+        "com.whatsapp",
+        "com.google.android.youtube",
+        "com.google.android.apps.maps",
+        "com.facebook.katana"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,20 +94,19 @@ class MainActivity : AppCompatActivity() {
                 params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 window.attributes = params
 
-                val packageName = "com.android.chrome"
+                val arraySize = packagesNames.size
+                val randomNumber = Random.nextInt(arraySize)
                 val pm = applicationContext.packageManager
-                val chromeIntent = pm.getLaunchIntentForPackage(packageName)
+                val appIntent: Intent? = pm.getLaunchIntentForPackage(packagesNames[randomNumber])
 
                 Thread.sleep(2)
-                println("App wordt geopend")
-                initializeIntent(chromeIntent!!)
+                initializeIntent(appIntent!!)
             }
         }
     }
 
     private fun initializeIntent(intent: Intent) {
-        val activities: List<ResolveInfo> =
-            packageManager.queryIntentActivities(intent, 0)
+        val activities: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
         val isIntentSafe: Boolean = activities.isNotEmpty()
 
         if (isIntentSafe) {
