@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sensorManager: SensorManager
     private lateinit var proximitySensor: Sensor
 
-    private val packagesNames = arrayOf(
+    private val packageNames = arrayOf(
         "com.android.chrome",
         "com.google.android.calendar",
         "com.oneplus.gallery",
@@ -84,27 +85,24 @@ class MainActivity : AppCompatActivity() {
 
         override fun onSensorChanged(event: SensorEvent) {
             val params = this@MainActivity.window.attributes
-            if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] < 8f) {
+            if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] == 0f) {
                 params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 window.attributes = params
 
-                val randomNumber: Int = Random.nextInt(packagesNames.size)
+                val randomNumber: Int = Random.nextInt(packageNames.size)
                 val pm: PackageManager = applicationContext.packageManager
                 val allApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
-                val appIntent: Intent? = pm.getLaunchIntentForPackage(packagesNames[randomNumber])
 
-                initializeIntent(appIntent!!)
-//                for (app in allApps) {
-//                    if (app.packageName === packagesNames[randomNumber]) {
-//                        proximitySensorMessage.text = "App "+packagesNames[randomNumber]+" wordt geopend"
-//                        initializeIntent(appIntent!!)
-//                        return
-//                    } else {
-//                        proximitySensorMessage.text = "Kan app niet openen"
-//                        proximitySensorMessage.setTextColor(resources.getColor(android.R.color.holo_red_dark))
-//                        return
-//                    }
-//                }
+                for (app in allApps) {
+                    if (app.packageName == packageNames[randomNumber]) {
+                        proximitySensorMessage.text = getString(R.string.successfulOpening)
+                        val appIntent: Intent? = pm.getLaunchIntentForPackage(packageNames[randomNumber])
+                        initializeIntent(appIntent!!)
+                        break
+                    } else {
+                        proximitySensorMessage.text = getString(R.string.failedOpening)
+                    }
+                }
             }
         }
     }
