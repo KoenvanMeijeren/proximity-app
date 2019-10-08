@@ -10,8 +10,8 @@
     <string name="openGmailApp">Gmail app wordt geopend</string>
     <string name="openPhoneApp">Telefoon app wordt geopend</string>
     <string name="noProximitySensor">Proximity sensor kan niet worden gebruikt</string>
-    <string name="successfulOpening">Successvol geopend</string>
-    <string name="failedOpening">Mislukte opening</string>
+    <string name="successfulOpening">App successvol geopend</string>
+    <string name="failedOpening">Mislukte opening van de app</string>
     <string name="appTitle">APP</string>
     <string name="placeholder">placeholder</string>
 </resources>
