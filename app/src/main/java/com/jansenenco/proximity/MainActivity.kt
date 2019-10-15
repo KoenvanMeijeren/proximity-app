@@ -17,7 +17,6 @@ import android.os.CountDownTimer
 import android.view.WindowManager
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private var timer: Long = 0
@@ -109,17 +108,20 @@ class MainActivity : AppCompatActivity() {
 
                 timer = startTimer()
             } else if (determineSensorHasBeenCalled) {
-                addSensorInputToString(stopTimer(timer) / 1000)
+                saveInput(stopTimer(timer) / 1000)
                 showCurrentCodeOnScreen()
-                if (stringIsOfExpectedLength(3) && codeIsInArray()) {
+
+                if (inputLength(3) && codeExists()) {
                     val pm: PackageManager = applicationContext.packageManager
                     val allApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
 
                     for (allApp in allApps) {
-                        if(allApp.packageName == packageNames.getOrDefault(input, "com.android.chrome")){
+                        if(allApp.packageName == getAppName()){
                             proximitySensorMessage.text = getString(R.string.successfulOpening)
-                            val appIntent: Intent? = pm.getLaunchIntentForPackage(packageNames.getValue(input))
+
+                            val appIntent: Intent? = pm.getLaunchIntentForPackage(getAppName())
                             initializeIntent(appIntent!!)
+
                             resetInput()
                             break
                         } else {
@@ -139,11 +141,7 @@ class MainActivity : AppCompatActivity() {
         return System.currentTimeMillis() - startCurrentMillis
     }
 
-    private fun showLength() { //eerst alleen timer laten zien, later alleen kort of lang
-
-    }
-
-    private fun addSensorInputToString(time: Long) {
+    private fun saveInput(time: Long) {
         if (time > 2) {
             input += "L"
             return
@@ -152,21 +150,25 @@ class MainActivity : AppCompatActivity() {
         return
     }
 
-    private fun resetInput () {
+    private fun resetInput() {
         input = ""
         proximitySensorMessage.text = ""
     }
 
-    private fun stringIsOfExpectedLength(length: Int): Boolean {
+    private fun inputLength(length: Int): Boolean {
         return input.length == length
     }
 
-    private fun codeIsInArray(): Boolean {
+    private fun codeExists(): Boolean {
         return packageNames.containsKey(input)
     }
 
     private fun showCurrentCodeOnScreen() {
         proximitySensorMessage.text = input
+    }
+
+    private fun getAppName(): String {
+        return packageNames.getOrDefault(input, "com.android.chrome")
     }
 
     private fun initializeIntent(intent: Intent) {
