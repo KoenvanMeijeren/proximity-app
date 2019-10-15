@@ -25,9 +25,9 @@ class AppActivity : AppCompatActivity() {
 
     private fun changeAppViewBasedOnId() {
         when (buttonID) {
-            2131165220 -> changeAppContent("Google Chrome", "willekeurige opening door middel van het bedekken van de sensor")
-            2131165221 -> changeAppContent("Gmail", "willekeurige opening door middel van het bedekken van de sensor")
-            2131165223 -> changeAppContent("Phone", "willekeurige opening door middel van het bedekken van de sensor")
+            2131165220 -> changeAppContent("Google Chrome", "Lang - kort - kort")
+            2131165221 -> changeAppContent("Gmail", "Kort - lang - kort")
+            2131165223 -> changeAppContent("Phone", "Kort - kort - lang")
         }
     }
 
