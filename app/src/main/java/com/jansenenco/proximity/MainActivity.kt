@@ -122,12 +122,13 @@ class MainActivity : AppCompatActivity() {
                             val appIntent: Intent? = pm.getLaunchIntentForPackage(getAppName())
                             initializeIntent(appIntent!!)
 
-                            resetInput()
                             break
                         } else {
                             proximitySensorMessage.text = getString(R.string.failedOpening)
                         }
                     }
+
+                    resetInput()
                 }
             }
         }
@@ -152,7 +153,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun resetInput() {
         input = ""
-        proximitySensorMessage.text = ""
     }
 
     private fun inputLength(length: Int): Boolean {
