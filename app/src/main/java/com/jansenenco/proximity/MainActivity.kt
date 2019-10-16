@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private var shortInput: Boolean = true
     private var input: String = ""
+    private val inputLength: Int = 3
     private var sensorHasBeenCalled: Boolean = false
 
     internal lateinit var countDownTimer: CountDownTimer
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                 val pm: PackageManager = applicationContext.packageManager
                 val installedApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
 
-                if (inputLength(3) && codeExists() && appIsInstalled(installedApps)) {
+                if (inputLength() && codeExists() && appIsInstalled(installedApps)) {
                     initializeIntent(pm.getLaunchIntentForPackage(getAppName())!!)
 
                     Toast.makeText(
@@ -142,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                     resetInput()
-                } else if (inputLength(3) && (!codeExists() || !appIsInstalled(installedApps))){
+                } else if (inputLength() && (!codeExists() || !appIsInstalled(installedApps))){
                     Toast.makeText(
                         this@MainActivity,
                         getString(R.string.failedOpening),
@@ -162,8 +163,8 @@ class MainActivity : AppCompatActivity() {
         input = ""
     }
 
-    private fun inputLength(length: Int): Boolean {
-        return input.length == length
+    private fun inputLength(): Boolean {
+        return input.length == inputLength
     }
 
     private fun codeExists(): Boolean {
