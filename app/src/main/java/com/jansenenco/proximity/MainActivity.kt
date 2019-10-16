@@ -21,6 +21,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var shortInput: Boolean = true
+    private val shortInputCode: String = "K"
+    private val longInputCode: String = "L"
+
     private var input: String = ""
     private val inputLength: Int = 3
     private var sensorHasBeenCalled: Boolean = false
@@ -37,15 +40,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sensorManager: SensorManager
     private lateinit var proximitySensor: Sensor
 
+    private val defaultPackage: String = "com.android.chrome"
     private val packageNames = mapOf(
-        "KKK" to "nl.dumpert",
-        "LKK" to "com.android.chrome",
-        "KLK" to "com.android.settings",
-        "KKL" to "com.android.dialer",
-        "LLL" to "com.oneplus.gallery",
-        "LLK" to "com.google.android.gm",
-        "LKL" to "com.google.android.calendar",
-        "KLL" to "com.snapchat.android"
+        shortInputCode + shortInputCode + shortInputCode to "nl.dumpert",
+        longInputCode + shortInputCode + shortInputCode to "com.android.chrome",
+        shortInputCode + longInputCode + shortInputCode to "com.android.settings",
+        shortInputCode + shortInputCode + longInputCode to "com.android.dialer",
+        longInputCode + longInputCode + longInputCode to "com.oneplus.gallery",
+        longInputCode + longInputCode + shortInputCode to "com.google.android.gm",
+        longInputCode + shortInputCode + longInputCode to "com.google.android.calendar",
+        shortInputCode + longInputCode + longInputCode to "com.snapchat.android"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,10 +127,12 @@ class MainActivity : AppCompatActivity() {
                 }.start()
             } else if (sensorHasBeenCalled) {
                 if (shortInput) {
-                    addInput("K")
+                    addInput(shortInputCode)
                     countDownTimer.cancel()
                 } else {
-                    addInput("L")
+                    addInput(longInputCode)
+                    countDownTimer.cancel()
+                    shortInput = true
                 }
 
                 showCurrentCodeOnScreen()
@@ -176,7 +182,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAppName(): String {
-        return packageNames.getOrDefault(input, "com.android.chrome")
+        return packageNames.getOrDefault(input, defaultPackage)
     }
 
     private fun appIsInstalled(installedApps: List<PackageInfo>): Boolean {
