@@ -101,6 +101,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun initializeIntent(intent: Intent) {
+        val activities: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
+
+        if (activities.isNotEmpty()) {
+            startActivity(intent)
+        }
+    }
+
     private var proximitySensorEventListener = object : SensorEventListener {
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
 
@@ -110,63 +118,64 @@ class MainActivity : AppCompatActivity() {
             val params = this@MainActivity.window.attributes
             if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] == 0f) {
                 sensorHasBeenCalled = true
+                shortInput = true
+
                 params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 window.attributes = params
 
-                countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        countDownTimerMessage.text = getString(
-                            R.string.shortInput, millisUntilFinished / 1000
-                        )
-                    }
-
-                    override fun onFinish() {
-                        countDownTimerMessage.text = getString(R.string.longInput)
-                        shortInput = false
-                    }
-                }.start()
+                startCountDownTimer()
             } else if (sensorHasBeenCalled) {
-                if (shortInput) {
-                    addInput(shortInputCode)
-                    countDownTimer.cancel()
-                } else {
-                    addInput(longInputCode)
-                    countDownTimer.cancel()
-                    shortInput = true
-                }
-
+                addInput()
                 showCurrentCodeOnScreen()
 
-                val pm: PackageManager = applicationContext.packageManager
-                val installedApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
+                val packageManager: PackageManager = applicationContext.packageManager
+                val installedApps: List<PackageInfo> =
+                    packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
 
-                if (inputLength() && codeExists() && appIsInstalled(installedApps)) {
-                    initializeIntent(pm.getLaunchIntentForPackage(getAppName())!!)
-
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.successfulOpening),
-                        Toast.LENGTH_LONG
-                    ).show()
-                    resetInput()
-                } else if (inputLength() && (!codeExists() || !appIsInstalled(installedApps))){
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.failedOpening),
-                        Toast.LENGTH_LONG
-                    ).show()
-                    resetInput()
-                }
+                openApp(packageManager, installedApps)
             }
         }
     }
 
-    private fun addInput(string: String) {
-        input += string
+    private fun startCountDownTimer() {
+        countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
+            override fun onTick(millisUntilFinished: Long) {
+                countDownTimerMessage.text = getString(
+                    R.string.shortInput, millisUntilFinished / 1000
+                )
+            }
+
+            override fun onFinish() {
+                countDownTimerMessage.text = getString(R.string.longInput)
+                shortInput = false
+            }
+        }.start()
     }
 
-    private fun resetInput() {
-        input = ""
+    private fun addInput() {
+        if (shortInput) {
+            input += shortInputCode
+            countDownTimer.cancel()
+            return
+        }
+
+        input += longInputCode
+    }
+
+    private fun showCurrentCodeOnScreen() {
+        proximitySensorMessage.text = input
+    }
+
+    private fun openApp(packageManager: PackageManager, installedApps: List<PackageInfo>) {
+        if (inputLength() && codeExists() && appIsInstalled(installedApps)) {
+            initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
+
+            addToastMessage(getString(R.string.successfulOpening))
+            resetInput()
+        } else if (inputLength() && (!codeExists() || !appIsInstalled(installedApps))) {
+            addToastMessage(getString(R.string.failedOpening))
+            resetInput()
+        }
     }
 
     private fun inputLength(): Boolean {
@@ -175,14 +184,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun codeExists(): Boolean {
         return packageNames.containsKey(input)
-    }
-
-    private fun showCurrentCodeOnScreen() {
-        proximitySensorMessage.text = input
-    }
-
-    private fun getAppName(): String {
-        return packageNames.getOrDefault(input, defaultPackage)
     }
 
     private fun appIsInstalled(installedApps: List<PackageInfo>): Boolean {
@@ -195,12 +196,15 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    private fun initializeIntent(intent: Intent) {
-        val activities: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
-        val isIntentSafe: Boolean = activities.isNotEmpty()
+    private fun getAppName(): String {
+        return packageNames.getOrDefault(input, defaultPackage)
+    }
 
-        if (isIntentSafe) {
-            startActivity(intent)
-        }
+    private fun addToastMessage(string: String) {
+        Toast.makeText(this@MainActivity, string, Toast.LENGTH_LONG).show()
+    }
+
+    private fun resetInput() {
+        input = ""
     }
 }
