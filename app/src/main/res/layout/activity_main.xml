@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/chrome"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonGmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/gmail"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonPhone"
         app:layout_constraintStart_toEndOf="@+id/buttonChrome"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/phone"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonGmail"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +43,34 @@
         android:id="@+id/proximitySensorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/placeholder"
+        android:textAlignment="center"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonGmail" />
+
+    <Button
+        android:id="@+id/resetInputButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="202dp"
+        android:text="@string/resetInputButton"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/countDownTimerMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/placeholder"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/proximitySensorMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
