@@ -16,17 +16,17 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var shortInput: Boolean = true
     private var input: String = ""
-    private var determineSensorHasBeenCalled: Boolean = false
+    private var sensorHasBeenCalled: Boolean = false
 
     internal lateinit var countDownTimer: CountDownTimer
     internal val initialCountDown: Long = 3000
     internal val countDownInterval: Long = 1000
-    private var timeLeft: Long = 0
 
     private lateinit var buttonChrome: Button
     private lateinit var buttonGmail: Button
@@ -104,63 +104,58 @@ class MainActivity : AppCompatActivity() {
         override fun onSensorChanged(event: SensorEvent) {
             val params = this@MainActivity.window.attributes
             if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] == 0f) {
-                determineSensorHasBeenCalled = true
+                sensorHasBeenCalled = true
                 params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 window.attributes = params
 
                 countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
                     override fun onTick(millisUntilFinished: Long) {
-                        timeLeft = millisUntilFinished / 1000
-                        countDownTimerMessage.text = "Kort: $timeLeft"
+                        countDownTimerMessage.text = getString(
+                            R.string.shortInput, millisUntilFinished / 1000
+                        )
                     }
 
                     override fun onFinish() {
-                        countDownTimerMessage.text = "Lang"
+                        countDownTimerMessage.text = getString(R.string.longInput)
                         shortInput = false
                     }
                 }.start()
-            } else if (determineSensorHasBeenCalled) {
-                saveInput()
+            } else if (sensorHasBeenCalled) {
+                if (shortInput) {
+                    addInput("K")
+                    countDownTimer.cancel()
+                } else {
+                    addInput("L")
+                }
+
                 showCurrentCodeOnScreen()
 
-                if (inputLength(3) && codeExists()) {
-                    val pm: PackageManager = applicationContext.packageManager
-                    val allApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
+                val pm: PackageManager = applicationContext.packageManager
+                val installedApps: List<PackageInfo> = pm.getInstalledPackages(PackageManager.GET_META_DATA)
 
-                    for (allApp in allApps) {
-                        if(allApp.packageName == getAppName()){
-                            proximitySensorMessage.text = getString(R.string.successfulOpening)
+                if (inputLength(3) && codeExists() && appIsInstalled(installedApps)) {
+                    initializeIntent(pm.getLaunchIntentForPackage(getAppName())!!)
 
-                            val appIntent: Intent? = pm.getLaunchIntentForPackage(getAppName())
-                            initializeIntent(appIntent!!)
-
-                            break
-                        } else {
-                            proximitySensorMessage.text = getString(R.string.failedOpening)
-                        }
-                    }
-
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.successfulOpening),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    resetInput()
+                } else if (inputLength(3) && (!codeExists() || !appIsInstalled(installedApps))){
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.failedOpening),
+                        Toast.LENGTH_LONG
+                    ).show()
                     resetInput()
                 }
             }
         }
     }
 
-    private fun startTimer(): Long {
-        return System.currentTimeMillis()
-    }
-
-    private fun stopTimer(startCurrentMillis: Long): Long {
-        return System.currentTimeMillis() - startCurrentMillis
-    }
-
-    private fun saveInput() {
-        if (shortInput) {
-            input += "K"
-            return
-        }
-        input += "L"
-        return
+    private fun addInput(string: String) {
+        input += string
     }
 
     private fun resetInput() {
@@ -181,6 +176,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAppName(): String {
         return packageNames.getOrDefault(input, "com.android.chrome")
+    }
+
+    private fun appIsInstalled(installedApps: List<PackageInfo>): Boolean {
+        for (app in installedApps) {
+            if (app.packageName == getAppName()) {
+                return true
+            }
+        }
+
+        return false
     }
 
     private fun initializeIntent(intent: Intent) {

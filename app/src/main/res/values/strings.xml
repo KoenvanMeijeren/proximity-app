@@ -14,5 +14,7 @@
     <string name="failedOpening">Mislukte opening van de app</string>
     <string name="appTitle">APP</string>
     <string name="placeholder"> </string>
+    <string name="longInput">Lang</string>
+    <string name="shortInput">Kort: %1$d</string>
     <string name="resetInputButton">Reset</string>
 </resources>
