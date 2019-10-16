@@ -17,5 +17,5 @@
     <string name="longInput">Lang</string>
     <string name="shortInput">Kort: %1$d</string>
     <string name="resetInputButton">Reset</string>
-    <string name="inputCode">Ingevoerde code: %1$d</string>
+    <string name="inputCode">Ingevoerde code: %1$s</string>
 </resources>

@@ -19,15 +19,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var shortInput: Boolean = true
-    private val shortInputCode: String = "K"
-    private val longInputCode: String = "L"
+    private val shortInputCode: String = "Kort "
+    private val longInputCode: String = "Lang "
 
     private var input: String = ""
-    private val inputLength: Int = 3
+    private val inputLength: Int = 15
     private var sensorHasBeenCalled: Boolean = false
 
     private lateinit var countDownTimer: CountDownTimer
-    private val initialCountDown: Long = 3000
+    private val initialCountDown: Long = 2000
     private val countDownInterval: Long = 1000
 
     private lateinit var buttonChrome: Button
@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
             override fun onTick(millisUntilFinished: Long) {
                 countDownTimerMessage.text = getString(
-                    R.string.shortInput, millisUntilFinished / 1000
+                    R.string.shortInput, millisUntilFinished / 1000 + 1
                 )
             }
 
