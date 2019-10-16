@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.jansenenco.proximity
 
 import android.content.Context
@@ -28,9 +26,9 @@ class MainActivity : AppCompatActivity() {
     private val inputLength: Int = 3
     private var sensorHasBeenCalled: Boolean = false
 
-    internal lateinit var countDownTimer: CountDownTimer
-    internal val initialCountDown: Long = 3000
-    internal val countDownInterval: Long = 1000
+    private lateinit var countDownTimer: CountDownTimer
+    private val initialCountDown: Long = 3000
+    private val countDownInterval: Long = 1000
 
     private lateinit var buttonChrome: Button
     private lateinit var buttonGmail: Button
@@ -164,6 +162,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCurrentCodeOnScreen() {
         proximitySensorMessage.text = input
+        addToastMessage(getString(R.string.inputCode, input))
     }
 
     private fun openApp(packageManager: PackageManager, installedApps: List<PackageInfo>) {
