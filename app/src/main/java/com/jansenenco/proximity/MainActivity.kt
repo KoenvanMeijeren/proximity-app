@@ -19,11 +19,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var shortInput: Boolean = true
-    private val shortInputCode: String = "Kort "
-    private val longInputCode: String = "Lang "
+    private val shortInputCode: String = "."
+    private val longInputCode: String = "_"
 
     private var input: String = ""
-    private val inputLength: Int = 15
+    private val inputLength: Int = 3
     private var sensorHasBeenCalled: Boolean = false
 
     private lateinit var countDownTimer: CountDownTimer
@@ -31,8 +31,13 @@ class MainActivity : AppCompatActivity() {
     private val countDownInterval: Long = 1000
 
     private lateinit var buttonChrome: Button
-    private lateinit var buttonGmail: Button
+    private lateinit var buttonMail: Button
     private lateinit var buttonPhone: Button
+    private lateinit var buttonWhatsApp: Button
+    private lateinit var buttonDumpert: Button
+    private lateinit var buttonSettings: Button
+    private lateinit var buttonGallery: Button
+    private lateinit var buttonSnapchat: Button
     private lateinit var resetInputButton: Button
 
     private lateinit var sensorManager: SensorManager
@@ -40,14 +45,14 @@ class MainActivity : AppCompatActivity() {
 
     private val defaultPackage: String = "com.android.chrome"
     private val packageNames = mapOf(
-        shortInputCode + shortInputCode + shortInputCode to "nl.dumpert",
-        longInputCode + shortInputCode + shortInputCode to "com.android.chrome",
-        shortInputCode + longInputCode + shortInputCode to "com.android.settings",
-        shortInputCode + shortInputCode + longInputCode to "com.android.dialer",
-        longInputCode + longInputCode + longInputCode to "com.oneplus.gallery",
-        longInputCode + longInputCode + shortInputCode to "com.google.android.gm",
-        longInputCode + shortInputCode + longInputCode to "com.google.android.calendar",
-        shortInputCode + longInputCode + longInputCode to "com.snapchat.android"
+        shortInputCode + shortInputCode + shortInputCode to "com.android.chrome",
+        longInputCode + shortInputCode + shortInputCode to "com.android.dialer",
+        shortInputCode + longInputCode + shortInputCode to "com.whatsapp",
+        shortInputCode + shortInputCode + longInputCode to "nl.dumpert",
+        longInputCode + longInputCode + longInputCode to "com.android.settings",
+        shortInputCode + longInputCode + longInputCode to "com.oneplus.gallery",
+        longInputCode + shortInputCode + longInputCode to "com.google.android.gm",
+        longInputCode + longInputCode + shortInputCode to "com.snapchat.android"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,34 +63,52 @@ class MainActivity : AppCompatActivity() {
         initializeProximitySensor()
     }
 
-    private fun changePage(buttonId: Int) {
-        val intent = Intent(this, AppActivity::class.java)
-        intent.putExtra("id", buttonId)
-        startActivity(intent)
-    }
-
     private fun initializeButtons() {
         buttonChrome = findViewById(R.id.buttonChrome)
-        buttonGmail = findViewById(R.id.buttonGmail)
+        buttonMail = findViewById(R.id.buttonMail)
         buttonPhone = findViewById(R.id.buttonPhone)
+        buttonWhatsApp = findViewById(R.id.buttonWhatsapp)
+        buttonDumpert = findViewById(R.id.buttonDumpert)
+        buttonSettings = findViewById(R.id.buttonSettings)
+        buttonGallery = findViewById(R.id.buttonGallery)
+        buttonSnapchat = findViewById(R.id.buttonSnapchat)
         resetInputButton = findViewById(R.id.resetInputButton)
 
         buttonChrome.setOnClickListener {
             changePage(buttonChrome.id)
         }
-
-        buttonGmail.setOnClickListener {
-            changePage(buttonGmail.id)
+        buttonMail.setOnClickListener {
+            changePage(buttonMail.id)
         }
-
         buttonPhone.setOnClickListener {
             changePage(buttonPhone.id)
+        }
+        buttonWhatsApp.setOnClickListener {
+            changePage(buttonWhatsApp.id)
+        }
+        buttonDumpert.setOnClickListener {
+            changePage(buttonDumpert.id)
+        }
+        buttonSettings.setOnClickListener {
+            changePage(buttonSettings.id)
+        }
+        buttonGallery.setOnClickListener {
+            changePage(buttonGallery.id)
+        }
+        buttonSnapchat.setOnClickListener {
+            changePage(buttonSnapchat.id)
         }
 
         resetInputButton.setOnClickListener {
             resetInput()
             proximitySensorMessage.text = ""
         }
+    }
+
+    private fun changePage(buttonId: Int) {
+        val intent = Intent(this, AppActivity::class.java)
+        intent.putExtra("id", buttonId)
+        startActivity(intent)
     }
 
     private fun initializeProximitySensor() {

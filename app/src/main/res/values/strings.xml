@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">Proximity</string>
     <string name="chrome">Chrome</string>
+    <string name="mail">Mail</string>
+    <string name="phone">Phone</string>
+    <string name="whatsapp">whatsapp</string>
+    <string name="dumpert">Dumpert</string>
+    <string name="settings">Settings</string>
+    <string name="gallery">Gallery</string>
+    <string name="snapchat">Snapchat</string>
     <string name="back">Back</string>
     <string name="testTextView">Test</string>
-    <string name="gmail">Gmail</string>
-    <string name="phone">Phone</string>
     <string name="inputPasswordTitle">Code</string>
-    <string name="openChromeApp">Google chrome app wordt geopend</string>
-    <string name="openGmailApp">Gmail app wordt geopend</string>
-    <string name="openPhoneApp">Telefoon app wordt geopend</string>
     <string name="noProximitySensor">Proximity sensor kan niet worden gebruikt</string>
     <string name="successfulOpening">App successvol geopend</string>
     <string name="failedOpening">Mislukte opening van de app</string>

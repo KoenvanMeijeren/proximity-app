@@ -6,9 +6,8 @@ import android.widget.Button
 import android.widget.TextView
 
 class AppActivity : AppCompatActivity() {
-
-    internal var buttonID: Int = 0
-    internal lateinit var buttonBack: Button
+    private var buttonID: Int = 0
+    private lateinit var buttonBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +23,16 @@ class AppActivity : AppCompatActivity() {
     }
 
     private fun changeAppViewBasedOnId() {
+        println(buttonID)
         when (buttonID) {
-            2131165220 -> changeAppContent("Google Chrome", "Lang - kort - kort")
-            2131165221 -> changeAppContent("Gmail", "Kort - lang - kort")
-            2131165223 -> changeAppContent("Phone", "Kort - kort - lang")
+            2131165220 -> changeAppContent("Google Chrome", "...")
+            2131165223 -> changeAppContent("Mail", "_..")
+            2131165225 -> changeAppContent("Phone", "._.")
+            2131165228 -> changeAppContent("Whatsapp", ".._")
+            2131165221 -> changeAppContent("Dumpert", "___")
+            2131165226 -> changeAppContent("Settings", ".__")
+            2131165222 -> changeAppContent("Gallerij", "_._")
+            2131165227 -> changeAppContent("Snapchat", ".__")
         }
     }
 
