@@ -13,6 +13,6 @@
     <string name="successfulOpening">App successvol geopend</string>
     <string name="failedOpening">Mislukte opening van de app</string>
     <string name="appTitle">APP</string>
-    <string name="placeholder">placeholder</string>
+    <string name="placeholder"> </string>
     <string name="resetInputButton">Reset</string>
 </resources>

@@ -19,13 +19,14 @@ import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var timer: Long = 0
+    private var shortInput: Boolean = true
     private var input: String = ""
     private var determineSensorHasBeenCalled: Boolean = false
 
     internal lateinit var countDownTimer: CountDownTimer
-    internal val initialCountDown: Long = 2000
+    internal val initialCountDown: Long = 3000
     internal val countDownInterval: Long = 1000
+    private var timeLeft: Long = 0
 
     private lateinit var buttonChrome: Button
     private lateinit var buttonGmail: Button
@@ -80,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
         resetInputButton.setOnClickListener {
             resetInput()
+            proximitySensorMessage.text = ""
         }
     }
 
@@ -106,9 +108,19 @@ class MainActivity : AppCompatActivity() {
                 params.flags = params.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 window.attributes = params
 
-                timer = startTimer()
+                countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        timeLeft = millisUntilFinished / 1000
+                        countDownTimerMessage.text = "Kort: $timeLeft"
+                    }
+
+                    override fun onFinish() {
+                        countDownTimerMessage.text = "Lang"
+                        shortInput = false
+                    }
+                }.start()
             } else if (determineSensorHasBeenCalled) {
-                saveInput(stopTimer(timer) / 1000)
+                saveInput()
                 showCurrentCodeOnScreen()
 
                 if (inputLength(3) && codeExists()) {
@@ -142,12 +154,12 @@ class MainActivity : AppCompatActivity() {
         return System.currentTimeMillis() - startCurrentMillis
     }
 
-    private fun saveInput(time: Long) {
-        if (time > 2) {
-            input += "L"
+    private fun saveInput() {
+        if (shortInput) {
+            input += "K"
             return
         }
-        input += "K"
+        input += "L"
         return
     }
 
