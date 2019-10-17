@@ -173,18 +173,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openApp(packageManager: PackageManager, installedApps: List<PackageInfo>) {
-        if (inputLength() && codeExists() && appIsInstalled(installedApps)) {
+        if (inputOfExpectedSize() && codeExists() && appIsInstalled(installedApps)) {
             initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
 
             addToastMessage(getString(R.string.successfulOpening, getReadableAppName(getAppName())))
             resetInput()
-        } else if (inputLength() && (!codeExists() || !appIsInstalled(installedApps))) {
+        } else if (inputOfExpectedSize() && (!codeExists() || !appIsInstalled(installedApps))) {
             addToastMessage(getString(R.string.failedOpening, getReadableAppName(getAppName())))
             resetInput()
         }
     }
 
-    private fun inputLength(): Boolean {
+    private fun inputOfExpectedSize(): Boolean {
         return input.length == inputLength
     }
 
