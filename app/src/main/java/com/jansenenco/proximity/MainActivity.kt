@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private var input: String = ""
     private val inputLength: Int = 3
+    private val sensorCallBreakPoint: Float = 0f
     private var sensorHasBeenCalled: Boolean = false
 
     private lateinit var countDownTimer: CountDownTimer
@@ -121,7 +122,9 @@ class MainActivity : AppCompatActivity() {
 
         override fun onSensorChanged(event: SensorEvent) {
             val params = this@MainActivity.window.attributes
-            if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] == 0f) {
+            if (event.sensor.type == Sensor.TYPE_PROXIMITY &&
+                event.values[0] == sensorCallBreakPoint
+            ) {
                 sensorHasBeenCalled = true
                 shortInput = true
 
