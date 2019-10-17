@@ -9,7 +9,7 @@
     <string name="gallery">Galerij</string>
     <string name="snapchat">Snapchat</string>
     <string name="back">Terug</string>
-    <string name="inputPasswordTitle">Code</string>
+    <string name="passwordLabel">Code</string>
     <string name="noProximitySensor">Proximity sensor kan niet worden gebruikt</string>
     <string name="successfulOpening">%1$s successvol geopend</string>
     <string name="failedOpening">Mislukte opening van %1$s</string>
