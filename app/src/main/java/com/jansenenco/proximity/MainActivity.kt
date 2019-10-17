@@ -166,12 +166,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openApp(packageManager: PackageManager) {
-        if (inputOfExpectedSize() && codeExists() && appIsInstalled()) {
+        if (inputOfExpectedSize() && codeExists() && isPackageInstalled()) {
             initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
 
             addToastMessage(getString(R.string.successfulOpening, getReadableAppName(getAppName())))
             resetInput()
-        } else if (inputOfExpectedSize() && (!codeExists() || !appIsInstalled())) {
+        } else if (inputOfExpectedSize() && (!codeExists() || !isPackageInstalled())) {
             addToastMessage(getString(R.string.failedOpening, getAppName()))
             resetInput()
         }
@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity() {
         return packageNames.containsKey(input)
     }
 
-    private fun appIsInstalled(): Boolean {
+    private fun isPackageInstalled(): Boolean {
         val installedApps: List<PackageInfo> = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
 
         for (app in installedApps) {
