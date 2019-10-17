@@ -157,12 +157,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addInput() {
-        if (shortInput) {
-            input += shortInputCode
-            return
-        }
-
-        input += longInputCode
+        return if (shortInput) input += shortInputCode else input += longInputCode
     }
 
     private fun showCurrentCodeOnScreen() {
@@ -175,11 +170,11 @@ class MainActivity : AppCompatActivity() {
             initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
 
             addToastMessage(getString(R.string.successfulOpening, getReadableAppName(getAppName())))
+            resetInput()
         } else if (inputOfExpectedSize() && (!codeExists() || !packageInstalled())) {
             addToastMessage(getString(R.string.failedOpening, getAppName()))
+            resetInput()
         }
-
-        resetInput()
     }
 
     private fun inputOfExpectedSize(): Boolean {
