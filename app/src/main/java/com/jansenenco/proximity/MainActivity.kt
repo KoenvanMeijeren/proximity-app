@@ -46,13 +46,13 @@ class MainActivity : AppCompatActivity() {
 
     private val defaultPackage: String = "com.android.chrome"
     private val packageNames = mapOf(
-        shortInputCode + shortInputCode + shortInputCode to "com.android.chrome",
-        longInputCode + shortInputCode + shortInputCode to "com.android.dialer",
-        shortInputCode + longInputCode + shortInputCode to "com.whatsapp",
-        shortInputCode + shortInputCode + longInputCode to "nl.dumpert",
-        longInputCode + longInputCode + longInputCode to "com.android.settings",
-        shortInputCode + longInputCode + longInputCode to "com.oneplus.gallery",
-        longInputCode + shortInputCode + longInputCode to "com.google.android.gm",
+        shortInputCode + shortInputCode + shortInputCode to "com.nope.nope",
+        longInputCode + shortInputCode + shortInputCode to "com.google.android.gm",
+        shortInputCode + longInputCode + shortInputCode to "com.android.dialer",
+        shortInputCode + shortInputCode + longInputCode to "com.whatsapp",
+        longInputCode + longInputCode + longInputCode to "nl.dumpert",
+        shortInputCode + longInputCode + longInputCode to "com.android.settings",
+        longInputCode + shortInputCode + longInputCode to "com.oneplus.gallery",
         longInputCode + longInputCode + shortInputCode to "com.snapchat.android"
     )
 
@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
             addToastMessage(getString(R.string.successfulOpening, getReadableAppName(getAppName())))
             resetInput()
         } else if (inputOfExpectedSize() && (!codeExists() || !appIsInstalled(installedApps))) {
-            addToastMessage(getString(R.string.failedOpening, getReadableAppName(getAppName())))
+            addToastMessage(getString(R.string.failedOpening, getAppName()))
             resetInput()
         }
     }

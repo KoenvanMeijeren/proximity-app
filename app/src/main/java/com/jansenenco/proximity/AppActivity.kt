@@ -31,7 +31,7 @@ class AppActivity : AppCompatActivity() {
             2131165221 -> changeAppContent("Dumpert", "_ _ _")
             2131165226 -> changeAppContent("Instellingen", ". _ _")
             2131165222 -> changeAppContent("Galerij", "_ . _")
-            2131165227 -> changeAppContent("Snapchat", ". _ _")
+            2131165227 -> changeAppContent("Snapchat", "_ _ .")
         }
     }
 
