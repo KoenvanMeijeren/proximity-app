@@ -131,13 +131,10 @@ class MainActivity : AppCompatActivity() {
                 startCountDownTimer()
             } else if (sensorHasBeenCalled) {
                 addInput()
+                countDownTimer.cancel()
+
                 showCurrentCodeOnScreen()
-
-                val packageManager: PackageManager = applicationContext.packageManager
-                val installedApps: List<PackageInfo> =
-                    packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
-
-                openApp(packageManager, installedApps)
+                openApp(applicationContext.packageManager)
             }
         }
     }
@@ -160,7 +157,6 @@ class MainActivity : AppCompatActivity() {
     private fun addInput() {
         if (shortInput) {
             input += shortInputCode
-            countDownTimer.cancel()
             return
         }
 
@@ -172,7 +168,10 @@ class MainActivity : AppCompatActivity() {
         addToastMessage(getString(R.string.inputCode, input))
     }
 
-    private fun openApp(packageManager: PackageManager, installedApps: List<PackageInfo>) {
+    private fun openApp(packageManager: PackageManager) {
+        val installedApps: List<PackageInfo> =
+            packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
+
         if (inputOfExpectedSize() && codeExists() && appIsInstalled(installedApps)) {
             initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
 
