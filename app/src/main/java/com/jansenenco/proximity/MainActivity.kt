@@ -158,12 +158,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addInput() {
-        if (shortInput) {
-            input += shortInputCode
-            return
-        }
-
-        input += longInputCode
+        return if (shortInput) input += shortInputCode else input += longInputCode
     }
 
     private fun showCurrentCodeOnScreen() {
