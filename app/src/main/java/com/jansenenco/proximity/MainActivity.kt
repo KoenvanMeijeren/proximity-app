@@ -21,11 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var shortInput: Boolean = true
     private val shortInputCode: String = "."
     private val longInputCode: String = "_"
-
     private var input: String = ""
     private val inputLength: Int = 3
-    private val sensorCallBreakPoint: Float = 0f
-    private var sensorHasBeenCalled: Boolean = false
 
     private lateinit var countDownTimer: CountDownTimer
     private val initialCountDown: Long = 2000
@@ -43,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sensorManager: SensorManager
     private lateinit var proximitySensor: Sensor
+    private val sensorCallBreakPoint: Float = 0f
+    private var sensorHasBeenCalled: Boolean = false
 
     private val defaultPackage: String = "com.android.chrome"
     private val packageNames = mapOf(
