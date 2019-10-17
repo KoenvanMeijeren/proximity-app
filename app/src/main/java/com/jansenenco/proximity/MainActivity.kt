@@ -74,30 +74,14 @@ class MainActivity : AppCompatActivity() {
         buttonSnapchat = findViewById(R.id.buttonSnapchat)
         resetInputButton = findViewById(R.id.resetInputButton)
 
-        buttonChrome.setOnClickListener {
-            changePage(buttonChrome.id)
-        }
-        buttonMail.setOnClickListener {
-            changePage(buttonMail.id)
-        }
-        buttonPhone.setOnClickListener {
-            changePage(buttonPhone.id)
-        }
-        buttonWhatsApp.setOnClickListener {
-            changePage(buttonWhatsApp.id)
-        }
-        buttonDumpert.setOnClickListener {
-            changePage(buttonDumpert.id)
-        }
-        buttonSettings.setOnClickListener {
-            changePage(buttonSettings.id)
-        }
-        buttonGallery.setOnClickListener {
-            changePage(buttonGallery.id)
-        }
-        buttonSnapchat.setOnClickListener {
-            changePage(buttonSnapchat.id)
-        }
+        buttonChrome.setOnClickListener { changePage(buttonChrome.id) }
+        buttonMail.setOnClickListener { changePage(buttonMail.id) }
+        buttonPhone.setOnClickListener { changePage(buttonPhone.id) }
+        buttonWhatsApp.setOnClickListener { changePage(buttonWhatsApp.id) }
+        buttonDumpert.setOnClickListener { changePage(buttonDumpert.id) }
+        buttonSettings.setOnClickListener { changePage(buttonSettings.id) }
+        buttonGallery.setOnClickListener { changePage(buttonGallery.id) }
+        buttonSnapchat.setOnClickListener { changePage(buttonSnapchat.id) }
 
         resetInputButton.setOnClickListener {
             resetInput()
