@@ -9,12 +9,12 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -74,14 +74,14 @@ class MainActivity : AppCompatActivity() {
         buttonSnapchat = findViewById(R.id.buttonSnapchat)
         resetInputButton = findViewById(R.id.resetInputButton)
 
-        buttonChrome.setOnClickListener { changePage(buttonChrome.id) }
-        buttonMail.setOnClickListener { changePage(buttonMail.id) }
-        buttonPhone.setOnClickListener { changePage(buttonPhone.id) }
-        buttonWhatsApp.setOnClickListener { changePage(buttonWhatsApp.id) }
-        buttonDumpert.setOnClickListener { changePage(buttonDumpert.id) }
-        buttonSettings.setOnClickListener { changePage(buttonSettings.id) }
-        buttonGallery.setOnClickListener { changePage(buttonGallery.id) }
-        buttonSnapchat.setOnClickListener { changePage(buttonSnapchat.id) }
+        buttonChrome.setOnClickListener { startActivity(buttonChrome.id) }
+        buttonMail.setOnClickListener { startActivity(buttonMail.id) }
+        buttonPhone.setOnClickListener { startActivity(buttonPhone.id) }
+        buttonWhatsApp.setOnClickListener { startActivity(buttonWhatsApp.id) }
+        buttonDumpert.setOnClickListener { startActivity(buttonDumpert.id) }
+        buttonSettings.setOnClickListener { startActivity(buttonSettings.id) }
+        buttonGallery.setOnClickListener { startActivity(buttonGallery.id) }
+        buttonSnapchat.setOnClickListener { startActivity(buttonSnapchat.id) }
 
         resetInputButton.setOnClickListener {
             resetInput()
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changePage(buttonId: Int) {
+    private fun startActivity(buttonId: Int) {
         val intent = Intent(this, AppActivity::class.java)
         intent.putExtra("id", buttonId)
         startActivity(intent)
@@ -170,11 +170,11 @@ class MainActivity : AppCompatActivity() {
             initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
 
             addToastMessage(getString(R.string.successfulOpening, getReadableAppName(getAppName())))
-            resetInput()
         } else if (inputOfExpectedSize() && (!codeExists() || !packageInstalled())) {
             addToastMessage(getString(R.string.failedOpening, getAppName()))
-            resetInput()
         }
+
+        resetInput()
     }
 
     private fun inputOfExpectedSize(): Boolean {
@@ -186,7 +186,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun packageInstalled(): Boolean {
-        val installedApps: List<PackageInfo> = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
+        val installedApps: List<PackageInfo> =
+            packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
 
         for (app in installedApps) {
             if (app.packageName == getAppName()) {
