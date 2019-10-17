@@ -192,10 +192,10 @@ class MainActivity : AppCompatActivity() {
         if (inputLength() && codeExists() && appIsInstalled(installedApps)) {
             initializeIntent(packageManager.getLaunchIntentForPackage(getAppName())!!)
 
-            addToastMessage(getString(R.string.successfulOpening))
+            addToastMessage(getString(R.string.successfulOpening, getReadableAppName(getAppName())))
             resetInput()
         } else if (inputLength() && (!codeExists() || !appIsInstalled(installedApps))) {
-            addToastMessage(getString(R.string.failedOpening))
+            addToastMessage(getString(R.string.failedOpening, getReadableAppName(getAppName())))
             resetInput()
         }
     }
@@ -222,8 +222,14 @@ class MainActivity : AppCompatActivity() {
         return packageNames.getOrDefault(input, defaultPackage)
     }
 
+    private fun getReadableAppName(packageName: String): CharSequence {
+        return packageManager.getApplicationLabel(
+            packageManager.getApplicationInfo(packageName, 0)
+        )
+    }
+
     private fun addToastMessage(string: String) {
-        Toast.makeText(this@MainActivity, string, Toast.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity, string, Toast.LENGTH_SHORT).show()
     }
 
     private fun resetInput() {

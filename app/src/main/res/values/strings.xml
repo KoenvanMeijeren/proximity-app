@@ -12,8 +12,8 @@
     <string name="testTextView">Test</string>
     <string name="inputPasswordTitle">Code</string>
     <string name="noProximitySensor">Proximity sensor kan niet worden gebruikt</string>
-    <string name="successfulOpening">App successvol geopend</string>
-    <string name="failedOpening">Mislukte opening van de app</string>
+    <string name="successfulOpening">%1$s successvol geopend</string>
+    <string name="failedOpening">Mislukte opening van %1$s</string>
     <string name="appTitle">APP</string>
     <string name="placeholder"> </string>
     <string name="longInput">Lang</string>
