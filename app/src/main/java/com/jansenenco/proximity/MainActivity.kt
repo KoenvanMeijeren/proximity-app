@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     private val defaultPackage: String = "com.android.chrome"
     private val packageNames = mapOf(
-        shortInputCode + shortInputCode + shortInputCode to "com.nope.nope",
+        shortInputCode + shortInputCode + shortInputCode to "com.android.chrome",
         longInputCode + shortInputCode + shortInputCode to "com.google.android.gm",
         shortInputCode + longInputCode + shortInputCode to "com.android.dialer",
         shortInputCode + shortInputCode + longInputCode to "com.whatsapp",
