@@ -10,20 +10,20 @@
         android:id="@+id/buttonChrome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="@string/chrome"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/buttonGmail"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonMail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonGmail"
+        android:id="@+id/buttonMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/gmail"
-        android:textSize="24sp"
+        android:layout_marginTop="24dp"
+        android:text="@string/mail"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonPhone"
         app:layout_constraintStart_toEndOf="@+id/buttonChrome"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,12 +32,82 @@
         android:id="@+id/buttonPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="@string/phone"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonGmail"
+        app:layout_constraintStart_toEndOf="@+id/buttonMail"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonWhatsapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/whatsapp"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDumpert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonChrome" />
+
+    <Button
+        android:id="@+id/buttonDumpert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/dumpert"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSettings"
+        app:layout_constraintStart_toEndOf="@+id/buttonWhatsapp"
+        app:layout_constraintTop_toBottomOf="@+id/buttonMail" />
+
+    <Button
+        android:id="@+id/buttonSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/settings"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonDumpert"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPhone" />
+
+    <Button
+        android:id="@+id/buttonGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/gallery"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSnapchat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWhatsapp" />
+
+    <Button
+        android:id="@+id/buttonSnapchat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/snapchat"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonGallery"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDumpert" />
+
+    <Button
+        android:id="@+id/resetInputButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/resetInputButton"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/proximitySensorMessage"
@@ -45,22 +115,11 @@
         android:layout_height="wrap_content"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGmail" />
-
-    <Button
-        android:id="@+id/resetInputButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="202dp"
-        android:text="@string/resetInputButton"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonMail" />
 
     <TextView
         android:id="@+id/countDownTimerMessage"
@@ -69,7 +128,7 @@
         android:layout_marginBottom="24dp"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textSize="36sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/proximitySensorMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

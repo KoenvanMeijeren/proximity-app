@@ -6,36 +6,36 @@ import android.widget.Button
 import android.widget.TextView
 
 class AppActivity : AppCompatActivity() {
-
-    internal var buttonID: Int = 0
-    internal lateinit var buttonBack: Button
+    private lateinit var buttonBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app)
 
-        buttonID = intent.getIntExtra("id", 0)
-        changeAppViewBasedOnId()
+        addPackageContent()
 
         buttonBack = findViewById(R.id.buttonBack)
-        buttonBack.setOnClickListener{
-            finish()
-        }
+        buttonBack.setOnClickListener { finish() }
     }
 
-    private fun changeAppViewBasedOnId() {
-        when (buttonID) {
-            2131165220 -> changeAppContent("Google Chrome", "Lang - kort - kort")
-            2131165221 -> changeAppContent("Gmail", "Kort - lang - kort")
-            2131165223 -> changeAppContent("Phone", "Kort - kort - lang")
+    private fun addPackageContent() {
+        when (intent.getIntExtra("id", 2131165220)) {
+            2131165220 -> changeAppContent("Google Chrome", ". . .")
+            2131165223 -> changeAppContent("Mail", "_ . .")
+            2131165225 -> changeAppContent("Telefoon", ". _ .")
+            2131165228 -> changeAppContent("Whatsapp", ". . _")
+            2131165221 -> changeAppContent("Dumpert", "_ _ _")
+            2131165226 -> changeAppContent("Instellingen", ". _ _")
+            2131165222 -> changeAppContent("Galerij", "_ . _")
+            2131165227 -> changeAppContent("Snapchat", "_ _ .")
         }
     }
 
     private fun changeAppContent(appName: String, password: String) {
-        val viewAppName: TextView = findViewById(R.id.appName)
-        viewAppName.text = appName
+        val packageName: TextView = findViewById(R.id.appName)
+        val packagePassword: TextView = findViewById(R.id.password)
 
-        val viewPassword: TextView = findViewById(R.id.password)
-        viewPassword.text = password
+        packageName.text = appName
+        packagePassword.text = password
     }
 }
