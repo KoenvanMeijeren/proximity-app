@@ -24,14 +24,14 @@ class AppActivity : AppCompatActivity() {
 
     private fun changeAppViewBasedOnId() {
         when (buttonID) {
-            2131165220 -> changeAppContent("Google Chrome", "...")
-            2131165223 -> changeAppContent("Mail", "_..")
-            2131165225 -> changeAppContent("Telefoon", "._.")
-            2131165228 -> changeAppContent("Whatsapp", ".._")
-            2131165221 -> changeAppContent("Dumpert", "___")
-            2131165226 -> changeAppContent("Instellingen", ".__")
-            2131165222 -> changeAppContent("Galerij", "_._")
-            2131165227 -> changeAppContent("Snapchat", ".__")
+            2131165220 -> changeAppContent("Google Chrome", ". . .")
+            2131165223 -> changeAppContent("Mail", "_ . .")
+            2131165225 -> changeAppContent("Telefoon", ". _ .")
+            2131165228 -> changeAppContent("Whatsapp", ". . _")
+            2131165221 -> changeAppContent("Dumpert", "_ _ _")
+            2131165226 -> changeAppContent("Instellingen", ". _ _")
+            2131165222 -> changeAppContent("Galerij", "_ . _")
+            2131165227 -> changeAppContent("Snapchat", ". _ _")
         }
     }
 
