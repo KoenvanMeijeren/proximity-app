@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
     private val inputLength: Int = 3
 
     private lateinit var countDownTimer: CountDownTimer
-    private val initialCountDown: Long = 2000
-    private val countDownInterval: Long = 1000
+    private val initialCountDown: Long = 1500
+    private val countDownInterval: Long = 500
 
     private lateinit var buttonChrome: Button
     private lateinit var buttonMail: Button
